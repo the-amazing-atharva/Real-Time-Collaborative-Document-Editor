@@ -1,9 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import InputField from "../../utils/InputField.jsx";
+import { useToast } from "../../utils/useToast.jsx"; // ADDED
 
 export default function Rename({ open, setOpen, file, files, setFiles }) {
   const [newName, setNewName] = useState(file.title);
+  const showToast = useToast(); // ADDED
 
   function setName() {
     fetch(`http://localhost:3000/api/docs/rename/${file.id}`, {
@@ -14,10 +16,21 @@ export default function Rename({ open, setOpen, file, files, setFiles }) {
       },
       body: JSON.stringify({ title: newName }),
     })
+      .then(async (res) => {
+        // MODIFIED: Added async
+        if (!res.ok) {
+          // ADDED: Error handling
+          const errorText = await res.text();
+          showToast(errorText, "error");
+          throw new Error(errorText);
+        }
+        return res.text(); // Return text as the API response is a string
+      })
       .then(() => {
         setFiles((oldState) =>
           oldState.map((f) => (f.id === file.id ? { ...f, title: newName } : f))
         );
+        showToast("Document renamed successfully!", "success"); // ADDED: Success toast
       })
       .catch((err) => {
         console.log(err);

@@ -1,9 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import InputField from "../../utils/InputField.jsx";
+import { useToast } from "../../utils/useToast.jsx"; // ADDED
 
 export default function CreateDoc({ open, setOpen, files, setFiles }) {
   const [title, setTitle] = useState("");
+  const showToast = useToast(); // ADDED
 
   function closeModal() {
     setOpen(false);
@@ -22,9 +24,19 @@ export default function CreateDoc({ open, setOpen, files, setFiles }) {
       }),
       credentials: "include",
     })
-      .then((res) => res.json())
+      .then(async (res) => {
+        // MODIFIED: Added async
+        if (!res.ok) {
+          // ADDED: Error handling
+          const errorText = await res.text();
+          showToast(errorText, "error");
+          throw new Error(errorText);
+        }
+        return res.json();
+      })
       .then((data) => {
         setFiles((oldState) => [data, ...oldState]);
+        showToast(`Document '${data.title}' created!`, "success"); // ADDED: Success toast
       })
       .catch((err) => {
         console.log(err);

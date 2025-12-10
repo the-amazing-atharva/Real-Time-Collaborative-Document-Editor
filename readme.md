@@ -15,6 +15,7 @@ This project implements a fully functional, real-time collaborative text editor,
 - **User Registration & Authentication**: Secure registration and login functionality for user accounts.
 - **Role-Based Access Control (RBAC)**: Documents are protected by owner and shared permissions.
 - **Session Management**: JWT-based authentication secures REST and WebSocket endpoints.
+- **Enhanced User Feedback**: Implemented **Toast Notifications** (Snackbars) for clear, non-intrusive feedback on successful logins, registrations, file creations, and renaming actions.
 
 ### Document & File Operations
 
@@ -22,6 +23,8 @@ This project implements a fully functional, real-time collaborative text editor,
 - **Fine-Grained Sharing**: Documents can be shared with other users, granting explicit `VIEW` or `EDIT` permissions.
 - **Ownership Security**: Only the document owner has the authority to permanently delete the file.
 - **Document Listing**: Users can view a categorized list of all documents they own or that have been shared with them.
+- **Advanced Filtering**: Added **Search and Live Filtering** capability on the homepage, allowing users to quickly find documents by **Title** or **Owner** name.
+- **Visual Access Indicators**: Implemented **Visual Permission Badges** on each document pill (`OWNER`, `CAN EDIT`, `CAN VIEW`) for immediate clarity on the current user's access level.
 
 ### Real-Time Collaborative Engine
 
@@ -29,6 +32,44 @@ This project implements a fully functional, real-time collaborative text editor,
 - **Real-time Cursor Tracking**: Users see the live cursor positions and selections of all other active editors.
 - **Active User Display**: Real-time broadcast of users currently connected to and editing the document.
 - **Basic Text Formatting**: Supports real-time application and synchronization of **bold** and _italic_ formatting.
+
+---
+
+## ▶️ Demo/Screenshots
+
+---
+
+#### Login view
+
+![](/Images/Login.PNG)
+
+#### Sign up view
+
+![](/Images/Signup.PNG)
+
+#### Homepage
+
+![](/Images/Homepage.PNG)
+
+#### Edit Page
+
+![](/Images/EditPage.PNG)
+
+#### Share with other users
+
+![](/Images/ShareWithOthers.PNG)
+
+#### Other User Homepage
+
+![](/Images/OtherHomepage.PNG)
+
+#### Collaborative Editing
+
+![](/Images/OtherUserView.png)
+
+#### Realtime Viewing For Active Users
+
+![](/Images/ViewActiveUsers.PNG)
 
 ---
 
@@ -55,14 +96,14 @@ The system follows a decoupled, two-tier architecture designed for high throughp
 
 ## 💻 Tech Stack
 
-| Component               | Technology                               | Rationale                                                                                   |
-| :---------------------- | :--------------------------------------- | :------------------------------------------------------------------------------------------ |
-| **Backend Framework**   | Java, Spring Boot                        | Robust, enterprise-grade foundation for scalable API and WebSocket services.                |
-| **Real-Time Layer**     | STOMP Web Sockets, Spring Messaging      | Provides reliable, low-latency, pub/sub communication for instant updates.                  |
-| **Conflict Resolution** | CRDT (Custom Implementation)             | The algorithm guaranteeing eventual consistency and correctness for concurrent edits.       |
-| **Persistence**         | Spring Data JPA, SQL Database (H2/MSSQL) | Reliable data storage for user accounts and document metadata.                              |
-| **Frontend Library**    | React.js                                 | Component-based structure for dynamic and maintainable user interfaces.                     |
-| **Editor Library**      | Quilljs, `quill-cursors`                 | Powerful editor foundation with dedicated support for cursor and selection synchronization. |
+| Component                | Technology                                | Rationale                                                                                    |
+| :----------------------- | :---------------------------------------- | :------------------------------------------------------------------------------------------- |
+| **Backend Framework**    | Java, Spring Boot                         | Robust, enterprise-grade foundation for scalable API and WebSocket services.                 |
+| **Real-Time Layer**      | STOMP Web Sockets, Spring Messaging       | Provides reliable, low-latency, pub/sub communication for instant updates.                   |
+| **Conflict Resolution**  | CRDT (Custom Implementation)              | The algorithm guaranteeing eventual consistency and correctness for concurrent edits.        |
+| **Persistence**          | Spring Data JPA, SQL Database (H2/MSSQL)  | Reliable data storage for user accounts and document metadata.                               |
+| **Frontend Library**     | React.js                                  | Component-based structure for dynamic and maintainable user interfaces.                      |
+| **Editor Library**       | Quilljs, `quill-cursors`                  | Powerful editor foundation with dedicated support for cursor and selection synchronization.  |
 
 ---
 
@@ -97,32 +138,24 @@ When a new character is inserted, its position is determined based on the IDs of
 
 ---
 
-## ▶️ Demo
-
----
-
-_(Placeholder for your demo link)_
-
----
-
 ## 🛠️ How to Run
 
 1.  **Clone the repository:**
-    ```sh
-    git clone <Your-Repository-URL>
-    ```
+        `sh
+    git clone <Your-Repository-URL>
+    `
 2.  **Start the Backend (Java/Spring Boot):**
-    ```sh
-    cd Online-Collaborative-Text-Editor/backend
-    ./gradlew build
-    ./gradlew bootRun
-    ```
+        `sh
+    cd Online-Collaborative-Text-Editor/backend
+    ./gradlew build
+    ./gradlew bootRun
+    `
 3.  **Start the Frontend (React.js):**
-    ```sh
-    cd ../frontend
-    npm i
-    npm run dev
-    ```
+        `sh
+    cd ../frontend
+    npm i
+    npm run dev
+    `
 4.  Open your web browser and navigate to the host link provided by Vite (typically `http://localhost:5173`).
 
 ---
