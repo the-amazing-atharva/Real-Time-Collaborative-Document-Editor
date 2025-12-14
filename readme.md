@@ -138,6 +138,26 @@ When a new character is inserted, its position is determined based on the IDs of
 
 ---
 
+## Diagrams
+
+### System Architecture
+
+![alt text](/Diagrams/01_system_arch.png)
+
+### Workflow
+
+![](/Diagrams/02_workflow.png)
+
+### UML/ERD
+
+![](/Diagrams/03_UML.png)
+
+### Core CRDT
+
+![](/Diagrams/04_CRDT.png)
+
+<br>
+
 ## 🛠️ How to Run
 
 1.  **Clone the repository:**
